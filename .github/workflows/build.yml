@@ -1,0 +1,30 @@
+name: Build MDSDRV  
+  
+on:  
+  push:  
+    branches: [ master ]  
+  pull_request:  
+  workflow_dispatch:  
+  
+jobs:  
+  build:  
+    runs-on: windows-latest  
+    steps:  
+      - name: Checkout repository  
+        uses: actions/checkout@v4  
+  
+      - name: Build MDSDRV  
+        run: cmd /c build.bat  
+        shell: cmd  
+  
+      - name: Upload artifacts  
+        uses: actions/upload-artifact@v4  
+        with:  
+          name: mdsdrv-binaries  
+          path: |  
+            out/mdsdrv.bin  
+            out/mdsseq.bin  
+            out/mdspcm.bin  
+            out/mdsseq.inc  
+            out/mdsseq.h  
+            main.bin
